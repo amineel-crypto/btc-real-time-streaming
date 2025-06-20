@@ -72,6 +72,7 @@ Follow these instructions to get the entire pipeline up and running on your loca
 
 The repository is organized into directories, with each directory representing a microservice.
 
+.
 ├── api/ # FastAPI service
 │ ├── Dockerfile
 │ ├── main.py
@@ -94,8 +95,6 @@ The repository is organized into directories, with each directory representing a
 ├── docker-compose.yml # Orchestrates all services, networks, and volumes.
 ├── .gitignore # Specifies files for Git to ignore.
 └── README.md # This file.
-
----
 
 ## 🖥️ Accessing the Services
 
