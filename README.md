@@ -1,5 +1,3 @@
-
-
 # Real-Time Bitcoin Price Streaming Pipeline
 
 A complete, real-time data streaming pipeline for ingesting, processing, storing, and visualizing live Bitcoin price data. The entire system is built on a dockerized microservices architecture, with each component running in its own container, orchestrated by Docker Compose.
@@ -87,7 +85,7 @@ This command only starts the two specified services from your `docker-compose.ym
         ```
 
 3.  **Install All Dependencies**
-    Install all dependencies for all services with the single `requirements.txt` file in the root directory.
+    Install all dependencies for all services using the single `requirements.txt` file in the root directory.
     ```bash
     pip install -r requirements.txt
     ```
@@ -126,19 +124,23 @@ You now have all Python services running locally, connected to the databases run
 .
 ├── api/                     # FastAPI service
 │   ├── Dockerfile
-│   └── main.py
+│   ├── main.py
+│   └── requirements.txt
 ├── consumer/                # Kafka consumer service
 │   ├── Dockerfile
-│   └── app.py
+│   ├── app.py
+│   └── requirements.txt
 ├── dashboard/               # Streamlit dashboard service
 │   ├── Dockerfile
-│   └── app.py
+│   ├── app.py
+│   └── requirements.txt
 ├── docs/                    # Documentation and assets
 │   └── images/
 │       └── architecture.png
 ├── producer/                # Standalone producer service
 │   ├── Dockerfile
-│   └── app.py
+│   ├── app.py
+│   └── requirements.txt
 ├── .gitignore               # Specifies files for Git to ignore.
 ├── docker-compose.yml       # Orchestrates all services, networks, and volumes.
 ├── requirements.txt         # All Python dependencies for local development.
@@ -164,3 +166,4 @@ You now have all Python services running locally, connected to the databases run
     ```bash
     docker-compose down
     ```
+```
