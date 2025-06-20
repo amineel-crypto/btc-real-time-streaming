@@ -1,0 +1,93 @@
+version: '3.9'
+
+services:
+  redpanda:
+    image: redpandadata/redpanda:latest
+    container_name: redpanda
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+      - "9644:9644"
+    command:
+      - redpanda
+      - start
+      - --overprovisioned
+      - --smp 1
+      - --memory 1G
+      - --reserve-memory 0M
+      - --node-id 0
+      - --check=false
+      - --kafka-addr PLAINTEXT://0.0.0.0:9092
+      - --advertise-kafka-addr PLAINTEXT://redpanda:9092
+    volumes:
+      - redpanda-data:/var/lib/redpanda/data
+    networks:
+      - kafka-net
+
+  redpanda-console:
+    image: docker.redpanda.com/redpandadata/console:latest
+    container_name: redpanda-console
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_BROKERS=redpanda:9092
+    depends_on:
+      - redpanda
+    networks:
+      - kafka-net
+
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - kafka-net
+
+  api:
+    build: ./api
+    container_name: btc-api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redpanda
+    networks:
+      - kafka-net
+
+  producer:
+    build: ./producer
+    container_name: btc-producer
+    depends_on:
+      - redpanda
+      - api
+    networks:
+      - kafka-net
+
+  consumer:
+    build: ./consumer
+    container_name: btc-consumer
+    depends_on:
+      - redpanda
+      - mongodb
+    networks:
+      - kafka-net
+
+  dashboard:
+    build: ./dashboard
+    container_name: btc-dashboard
+    ports:
+      - "8501:8501"
+    depends_on:
+      - redpanda
+      - mongodb
+    networks:
+      - kafka-net
+
+volumes:
+  redpanda-data:
+  mongo-data:
+
+networks:
+  kafka-net:

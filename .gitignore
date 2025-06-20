@@ -1,0 +1,31 @@
+# --- VIRTUAL ENVIRONMENT ---
+# Ignore the Python virtual environment folder.
+# It's machine-specific and can be recreated from requirements.txt.
+btc-venv/
+
+# --- PYTHON ---
+# Ignore Python bytecode files and cache directories.
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- ENVIRONMENT VARIABLES ---
+# CRITICAL: Never commit secrets!
+# Ignore .env files that contain API keys, database URIs, etc.
+.env
+.env.*
+!.env.example
+
+# --- IDE & OS SPECIFIC ---
+# Ignore common IDE and operating system files.
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- LOGS & BUILD ---
+# Ignore log files and build artifacts.
+*.log
+build/
+dist/
