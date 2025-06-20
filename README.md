@@ -1,4 +1,4 @@
-# Real-Time Bitcoin Price Streaming Pipeline
+![image](https://github.com/user-attachments/assets/c1314471-612c-44f0-9e17-8f6919b98300)# Real-Time Bitcoin Price Streaming Pipeline
 
 A complete, real-time data streaming pipeline for ingesting, processing, storing, and visualizing live Bitcoin price data. The entire system is built on a dockerized microservices architecture, with each component running in its own container, orchestrated by Docker Compose.
 
@@ -72,29 +72,8 @@ Follow these instructions to get the entire pipeline up and running on your loca
 
 The repository is organized into directories, with each directory representing a microservice.
 
-.
-├── api/ # FastAPI service
-│ ├── Dockerfile
-│ ├── main.py
-│ └── requirements.txt
-├── consumer/ # Kafka consumer service
-│ ├── Dockerfile
-│ ├── app.py
-│ └── requirements.txt
-├── dashboard/ # Streamlit dashboard service
-│ ├── Dockerfile
-│ ├── app.py
-│ └── requirements.txt
-├── docs/ # Documentation and assets
-│ └── images/
-│ └── architecture.png
-├── producer/ # Standalone producer service
-│ ├── Dockerfile
-│ ├── app.py
-│ └── requirements.txt
-├── docker-compose.yml # Orchestrates all services, networks, and volumes.
-├── .gitignore # Specifies files for Git to ignore.
-└── README.md # This file.
+
+
 
 ## 🖥️ Accessing the Services
 
