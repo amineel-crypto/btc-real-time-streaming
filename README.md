@@ -30,7 +30,7 @@ The system follows an event-driven pattern where services are decoupled using a 
 
 ---
 
-## 🚀 Getting Started (Docker Method)
+## 🚀 Getting Started
 
 This is the recommended way to run the entire application stack.
 
@@ -49,72 +49,10 @@ This is the recommended way to run the entire application stack.
     ```
 
 2.  **Build and Run the Services**
+    This command will build the images for each service and start them in the background.
     ```bash
     docker-compose up --build -d
     ```
-
----
-
-## 🧪 Local Testing (Without Docker)
-
-Use this method for development and debugging individual Python services directly on your host machine. We will still use Docker for the databases.
-
-### Step 1: Start Backing Services
-
-First, start Redpanda and MongoDB using Docker. This avoids having to install them manually.
-```bash
-docker-compose up -d redpanda mongodb
-```
-This command only starts the two specified services from your `docker-compose.yml` file.
-
-### Step 2: Set Up Python Environment
-
-1.  **Create a Virtual Environment**
-    ```bash
-    python -m venv btc-venv
-    ```
-
-2.  **Activate It**
-    *   On Windows:
-        ```cmd
-        .\btc-venv\Scripts\activate
-        ```
-    *   On macOS/Linux:
-        ```bash
-        source btc-venv/bin/activate
-        ```
-
-3.  **Install All Dependencies**
-    Install all dependencies for all services using the single `requirements.txt` file in the root directory.
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-### Step 3: Run Each Service in a Separate Terminal
-
-Open a new terminal for each service. **Remember to activate the virtual environment (`btc-venv`) in each new terminal.**
-
-1.  **Run the Producer** (Open Terminal 1)
-    ```bash
-    python producer/app.py
-    ```
-
-2.  **Run the Consumer** (Open Terminal 2)
-    ```bash
-    python consumer/app.py
-    ```
-
-3.  **Run the API** (Open Terminal 3)
-    ```bash
-    uvicorn api.main:app --reload
-    ```
-
-4.  **Run the Dashboard** (Open Terminal 4)
-    ```bash
-    streamlit run dashboard/app.py
-    ```
-
-You now have all Python services running locally, connected to the databases running in Docker.
 
 ---
 
@@ -143,13 +81,14 @@ You now have all Python services running locally, connected to the databases run
 │   └── requirements.txt
 ├── .gitignore               # Specifies files for Git to ignore.
 ├── docker-compose.yml       # Orchestrates all services, networks, and volumes.
-├── requirements.txt         # All Python dependencies for local development.
 └── README.md                # This file.
 ```
 
 ---
 
 ## 🖥️ Accessing the Services
+
+Once the containers are up and running, you can access the front-facing services:
 
 *   **Streamlit Dashboard (Visualization):**
     Open your browser and go to: **[http://localhost:8501](http://localhost:8501)**
@@ -161,9 +100,7 @@ You now have all Python services running locally, connected to the databases run
 
 ## 🛑 Stopping the Application
 
-*   **To stop the local Python scripts:** Press `Ctrl + C` in each of their terminals.
-*   **To stop the Docker containers (Redpanda & MongoDB):**
-    ```bash
-    docker-compose down
-    ```
-
+To stop and remove all the running containers, networks, and volumes created by Docker Compose, run the following command in your terminal:
+```bash
+docker-compose down
+```
