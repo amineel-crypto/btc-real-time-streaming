@@ -1,4 +1,5 @@
 
+```markdown
 # Real-Time Bitcoin Price Streaming Pipeline
 
 A complete, real-time data streaming pipeline for ingesting, processing, storing, and visualizing live Bitcoin price data. The entire system is built on a dockerized microservices architecture, with each component running in its own container, orchestrated by Docker Compose.
@@ -86,14 +87,14 @@ This command only starts the two specified services from your `docker-compose.ym
         ```
 
 3.  **Install All Dependencies**
-    Install the requirements from all services into your single virtual environment.
+    Install all dependencies for all services with the single `requirements.txt` file in the root directory.
     ```bash
-    pip install -r api/requirements.txt -r producer/requirements.txt -r consumer/requirements.txt -r dashboard/requirements.txt
+    pip install -r requirements.txt
     ```
 
 ### Step 3: Run Each Service in a Separate Terminal
 
-Open a new terminal for each service. **Remember to activate the virtual environment in each new terminal.**
+Open a new terminal for each service. **Remember to activate the virtual environment (`btc-venv`) in each new terminal.**
 
 1.  **Run the Producer** (Open Terminal 1)
     ```bash
@@ -125,25 +126,22 @@ You now have all Python services running locally, connected to the databases run
 .
 ├── api/                     # FastAPI service
 │   ├── Dockerfile
-│   ├── main.py
-│   └── requirements.txt
+│   └── main.py
 ├── consumer/                # Kafka consumer service
 │   ├── Dockerfile
-│   ├── app.py
-│   └── requirements.txt
+│   └── app.py
 ├── dashboard/               # Streamlit dashboard service
 │   ├── Dockerfile
-│   ├── app.py
-│   └── requirements.txt
+│   └── app.py
 ├── docs/                    # Documentation and assets
 │   └── images/
 │       └── architecture.png
 ├── producer/                # Standalone producer service
 │   ├── Dockerfile
-│   ├── app.py
-│   └── requirements.txt
-├── docker-compose.yml       # Orchestrates all services, networks, and volumes.
+│   └── app.py
 ├── .gitignore               # Specifies files for Git to ignore.
+├── docker-compose.yml       # Orchestrates all services, networks, and volumes.
+├── requirements.txt         # All Python dependencies for local development.
 └── README.md                # This file.
 ```
 
