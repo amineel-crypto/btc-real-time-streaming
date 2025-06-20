@@ -164,4 +164,3 @@ You now have all Python services running locally, connected to the databases run
     ```bash
     docker-compose down
     ```
-```
