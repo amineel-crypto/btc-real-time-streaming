@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/c1314471-612c-44f0-9e17-8f6919b98300)# Real-Time Bitcoin Price Streaming Pipeline
+# Real-Time Bitcoin Price Streaming Pipeline
 
 A complete, real-time data streaming pipeline for ingesting, processing, storing, and visualizing live Bitcoin price data. The entire system is built on a dockerized microservices architecture, with each component running in its own container, orchestrated by Docker Compose.
 
@@ -30,9 +30,9 @@ The system follows an event-driven pattern where services are decoupled using a 
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started (Docker Method)
 
-Follow these instructions to get the entire pipeline up and running on your local machine.
+This is the recommended way to run the entire application stack.
 
 ### Prerequisites
 
@@ -49,44 +49,178 @@ Follow these instructions to get the entire pipeline up and running on your loca
     ```
 
 2.  **Build and Run the Services**
-    Use Docker Compose to build the custom images and start all the services.
     ```bash
     docker-compose up --build -d
     ```
-    *   `--build`: Forces a rebuild of the images from your `Dockerfile`s.
-    *   `-d`: Runs the containers in detached mode (in the background).
-
-3.  **Verify the Services**
-    Check the status of all running containers:
-    ```bash
-    docker-compose ps
-    ```
-    To view the real-time logs for a specific service (e.g., the consumer), run:
-    ```bash
-    docker-compose logs -f consumer
-    ```
 
 ---
 
-## 📁 Project Structure
+## 🧪 Local Testing (Without Docker)
 
-The repository is organized into directories, with each directory representing a microservice.
+Use this method for development and debugging individual Python services directly on your host machine. We will still use Docker for the databases.
 
+### Step 1: Start Backing Services
 
-
-
-## 🖥️ Accessing the Services
-
-*   **Streamlit Dashboard (Visualization):**
-    Open your browser and go to: **[http://localhost:8501](http://localhost:8501)**
-
-*   **FastAPI (API Docs):**
-    To view the auto-generated API documentation, go to: **[http://localhost:8000/docs](http://localhost:8000/docs)**
-
----
-
-## 🛑 Stopping the Application
-
-To stop all the services and remove the containers, run the following command in your terminal:
+First, start Redpanda and MongoDB using Docker. This avoids having to install them manually.
 ```bash
+docker-compose up -d redpanda mongodb
+
+
+This command only starts the two specified services from your docker-compose.yml file.
+
+Step 2: Set Up Python Environment
+
+Create a Virtual Environment
+
+Generated bash
+python -m venv btc-venv
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Activate It
+
+On Windows:
+
+Generated cmd
+.\btc-venv\Scripts\activate
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Cmd
+IGNORE_WHEN_COPYING_END
+
+On macOS/Linux:
+
+Generated bash
+source btc-venv/bin/activate
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Install All Dependencies
+Install the requirements from all services into your single virtual environment.
+
+Generated bash
+pip install -r api/requirements.txt -r producer/requirements.txt -r consumer/requirements.txt -r dashboard/requirements.txt
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+Step 3: Run Each Service in a Separate Terminal
+
+Open a new terminal for each service. Remember to activate the virtual environment in each new terminal.
+
+Run the Producer (Open Terminal 1)
+
+Generated bash
+python producer/app.py
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Run the Consumer (Open Terminal 2)
+
+Generated bash
+python consumer/app.py
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Run the API (Open Terminal 3)
+
+Generated bash
+uvicorn api.main:app --reload
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Run the Dashboard (Open Terminal 4)
+
+Generated bash
+streamlit run dashboard/app.py
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+You now have all Python services running locally, connected to the databases running in Docker.
+
+📁 Project Structure
+Generated code
+.
+├── api/                     # FastAPI service
+│   ├── Dockerfile
+│   ├── main.py
+│   └── requirements.txt
+├── consumer/                # Kafka consumer service
+│   ├── Dockerfile
+│   ├── app.py
+│   └── requirements.txt
+├── dashboard/               # Streamlit dashboard service
+│   ├── Dockerfile
+│   ├── app.py
+│   └── requirements.txt
+├── docs/                    # Documentation and assets
+│   └── images/
+│       └── architecture.png
+├── producer/                # Standalone producer service
+│   ├── Dockerfile
+│   ├── app.py
+│   └── requirements.txt
+├── docker-compose.yml       # Orchestrates all services, networks, and volumes.
+├── .gitignore               # Specifies files for Git to ignore.
+└── README.md                # This file.
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+IGNORE_WHEN_COPYING_END
+🖥️ Accessing the Services
+
+Streamlit Dashboard (Visualization):
+Open your browser and go to: http://localhost:8501
+
+FastAPI (API Docs):
+To view the auto-generated API documentation, go to: http://localhost:8000/docs
+
+🛑 Stopping the Application
+
+To stop the local Python scripts: Press Ctrl + C in each of their terminals.
+
+To stop the Docker containers (Redpanda & MongoDB):
+
+Generated bash
 docker-compose down
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+Generated code
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+IGNORE_WHEN_COPYING_END
