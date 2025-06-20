@@ -1,3 +1,8 @@
+Of course. I understand completely. Here is the entire text in a single block. This should be very easy to copy.
+
+Click the **"Copy"** button in the top-right corner of the block below. Then, paste it into your `README.md` file.
+
+```
 # Real-Time Bitcoin Price Streaming Pipeline
 
 A complete, real-time data streaming pipeline for ingesting, processing, storing, and visualizing live Bitcoin price data. The entire system is built on a dockerized microservices architecture, with each component running in its own container, orchestrated by Docker Compose.
@@ -64,110 +69,63 @@ Use this method for development and debugging individual Python services directl
 First, start Redpanda and MongoDB using Docker. This avoids having to install them manually.
 ```bash
 docker-compose up -d redpanda mongodb
+```
+This command only starts the two specified services from your `docker-compose.yml` file.
 
+### Step 2: Set Up Python Environment
 
-This command only starts the two specified services from your docker-compose.yml file.
+1.  **Create a Virtual Environment**
+    ```bash
+    python -m venv btc-venv
+    ```
 
-Step 2: Set Up Python Environment
+2.  **Activate It**
+    *   On Windows:
+        ```cmd
+        .\btc-venv\Scripts\activate
+        ```
+    *   On macOS/Linux:
+        ```bash
+        source btc-venv/bin/activate
+        ```
 
-Create a Virtual Environment
+3.  **Install All Dependencies**
+    Install the requirements from all services into your single virtual environment.
+    ```bash
+    pip install -r api/requirements.txt -r producer/requirements.txt -r consumer/requirements.txt -r dashboard/requirements.txt
+    ```
 
-Generated bash
-python -m venv btc-venv
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
+### Step 3: Run Each Service in a Separate Terminal
 
-Activate It
+Open a new terminal for each service. **Remember to activate the virtual environment in each new terminal.**
 
-On Windows:
+1.  **Run the Producer** (Open Terminal 1)
+    ```bash
+    python producer/app.py
+    ```
 
-Generated cmd
-.\btc-venv\Scripts\activate
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Cmd
-IGNORE_WHEN_COPYING_END
+2.  **Run the Consumer** (Open Terminal 2)
+    ```bash
+    python consumer/app.py
+    ```
 
-On macOS/Linux:
+3.  **Run the API** (Open Terminal 3)
+    ```bash
+    uvicorn api.main:app --reload
+    ```
 
-Generated bash
-source btc-venv/bin/activate
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-
-Install All Dependencies
-Install the requirements from all services into your single virtual environment.
-
-Generated bash
-pip install -r api/requirements.txt -r producer/requirements.txt -r consumer/requirements.txt -r dashboard/requirements.txt
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-Step 3: Run Each Service in a Separate Terminal
-
-Open a new terminal for each service. Remember to activate the virtual environment in each new terminal.
-
-Run the Producer (Open Terminal 1)
-
-Generated bash
-python producer/app.py
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-
-Run the Consumer (Open Terminal 2)
-
-Generated bash
-python consumer/app.py
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-
-Run the API (Open Terminal 3)
-
-Generated bash
-uvicorn api.main:app --reload
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-
-Run the Dashboard (Open Terminal 4)
-
-Generated bash
-streamlit run dashboard/app.py
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
+4.  **Run the Dashboard** (Open Terminal 4)
+    ```bash
+    streamlit run dashboard/app.py
+    ```
 
 You now have all Python services running locally, connected to the databases running in Docker.
 
-📁 Project Structure
-Generated code
+---
+
+## 📁 Project Structure
+
+```
 .
 ├── api/                     # FastAPI service
 │   ├── Dockerfile
@@ -191,36 +149,25 @@ Generated code
 ├── docker-compose.yml       # Orchestrates all services, networks, and volumes.
 ├── .gitignore               # Specifies files for Git to ignore.
 └── README.md                # This file.
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-IGNORE_WHEN_COPYING_END
-🖥️ Accessing the Services
+```
 
-Streamlit Dashboard (Visualization):
-Open your browser and go to: http://localhost:8501
+---
 
-FastAPI (API Docs):
-To view the auto-generated API documentation, go to: http://localhost:8000/docs
+## 🖥️ Accessing the Services
 
-🛑 Stopping the Application
+*   **Streamlit Dashboard (Visualization):**
+    Open your browser and go to: **[http://localhost:8501](http://localhost:8501)**
 
-To stop the local Python scripts: Press Ctrl + C in each of their terminals.
+*   **FastAPI (API Docs):**
+    To view the auto-generated API documentation, go to: **[http://localhost:8000/docs](http://localhost:8000/docs)**
 
-To stop the Docker containers (Redpanda & MongoDB):
+---
 
-Generated bash
-docker-compose down
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-Generated code
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-IGNORE_WHEN_COPYING_END
+## 🛑 Stopping the Application
+
+*   **To stop the local Python scripts:** Press `Ctrl + C` in each of their terminals.
+*   **To stop the Docker containers (Redpanda & MongoDB):**
+    ```bash
+    docker-compose down
+    ```
+```
