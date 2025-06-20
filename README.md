@@ -1,5 +1,5 @@
 
-```markdown
+
 # Real-Time Bitcoin Price Streaming Pipeline
 
 A complete, real-time data streaming pipeline for ingesting, processing, storing, and visualizing live Bitcoin price data. The entire system is built on a dockerized microservices architecture, with each component running in its own container, orchestrated by Docker Compose.
